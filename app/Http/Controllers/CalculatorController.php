@@ -2,23 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Moveit\Emoji\EmojiService;
+use App\Moveit\Calculator\Services\CalculatorService;
 
 class CalculatorController extends Controller
 {
-    /**
-     * @var EmojiService
-     */
-    protected $emojiService;
 
     /**
      * CalculatorController constructor.
-     * @param EmojiService $emojiService
+     * @param CalculatorService $calculatorService
      */
-    public function __construct(EmojiService $emojiService)
+    public function __construct(CalculatorService $calculatorService)
     {
-        $this->emojiService = $emojiService;
+        $this->calculatorService = $calculatorService;
     }
 
     /**
@@ -28,6 +23,6 @@ class CalculatorController extends Controller
      */
     public function homepage()
     {
-        $this->emojiService->
+        return view('calculator.home');
     }
 }
