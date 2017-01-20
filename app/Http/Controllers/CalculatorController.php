@@ -2,8 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CalculationRequest;
 use App\Moveit\Calculator\Services\CalculatorService;
 
+/**
+ * Class CalculatorController
+ * @package App\Http\Controllers
+ */
 class CalculatorController extends Controller
 {
     /**
@@ -28,5 +33,26 @@ class CalculatorController extends Controller
     public function homepage()
     {
         return view('calculator.home', ['symbols' => $this->calculatorService->getOperandSymbols()]);
+    }
+
+    /**
+     * @param CalculationRequest $calculationRequest
+     * @return float|string
+     */
+    public function getResult(CalculationRequest $calculationRequest)
+    {
+        $requestInput = $calculationRequest->all();
+
+        try {
+            $result = $this->calculatorService->calculate(
+                $requestInput['operation'],
+                $requestInput['firstOperand'],
+                $requestInput['secondOperand']
+            );
+        } catch (\InvalidArgumentException $invalidArgumentException) {
+            return $invalidArgumentException->getMessage();
+        }
+
+        return $result;
     }
 }
