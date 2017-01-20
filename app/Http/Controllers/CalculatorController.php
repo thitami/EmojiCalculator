@@ -6,6 +6,10 @@ use App\Moveit\Calculator\Services\CalculatorService;
 
 class CalculatorController extends Controller
 {
+    /**
+     * @var CalculatorService
+     */
+    protected $calculatorService;
 
     /**
      * CalculatorController constructor.
@@ -23,6 +27,6 @@ class CalculatorController extends Controller
      */
     public function homepage()
     {
-        return view('calculator.home');
+        return view('calculator.home', ['symbols' => $this->calculatorService->getOperandSymbols()]);
     }
 }

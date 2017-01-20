@@ -15,15 +15,9 @@ class CalculatorService
 
     }
 
-    /**
-     * @param array $input
-     *
-     * @return int|bool
-     */
-    public function save(array $input)
+    public function getOperandSymbols()
     {
-
+        return ['&#128125;', '&#128128;', '&#128123;', '&#128561;'];
     }
-
 
 }
