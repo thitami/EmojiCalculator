@@ -15,6 +15,7 @@ Then, we visit `localhost:8000` in a browser and we are ready to use it!
 ## Approach
 
 When we hit `localhost:8000` the following actions take place:
+
 1. The `Route::get('/','CalculatorController@homepage')` route is matched in `web.php`
 2. The `CalculatorService` is called to load the Operand symbols supplied in the `.env` file.
 3. If the user has filled in (by mistake, or not so...) the same symbol for a different operation, then the defaults are loaded as defined in `config/calculator.php` file, and rendered in the view.
@@ -24,14 +25,12 @@ matching the route: `Route::post('/calculate',['as' => 'calculator.do', 'uses' =
 5. The user can also select a different value from the dropdown menu and the result will be automatically calculated on the server side and displayed in the results field.           
 
 ## Update Emojis
-The emojis used by the calculator can be configured in the `.env` file and by default are as follows: 
+The emojis used by the calculator can be configured in the `.env` file: 
 
-```CALCULATOR_ADD_OPERAND = '&#128125;'
-
+```
+ CALCULATOR_ADD_OPERAND = '&#128125;'
  CALCULATOR_SUBTRACT_OPERAND = '&#128128;'
- 
  CALCULATOR_DIVIDE_OPERAND = '&#128123;'
- 
  CALCULATOR_MULTIPLY_OPERAND = '&#128561;'
  ```
  
