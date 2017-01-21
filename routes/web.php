@@ -12,4 +12,4 @@
 */
 
 Route::get('/','CalculatorController@homepage');
-Route::post('/calculate',['as' => 'calculator.do', 'uses' => 'CalculatorController@getResult']);
+Route::post('/calculate',['as' => 'calculator.getResult', 'uses' => 'CalculatorController@getResult']);

@@ -1,0 +1,18 @@
+#calc-output {
+    height: 54px;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 24px;
+    text-align: right;
+    margin-bottom: 20px;
+}
+
+.operand {
+    margin-bottom: 20px;
+}
+
+#submit-calc {
+    background-color: royalblue;
+    color: whitesmoke;
+    font-weight: bold;
+}

@@ -21,7 +21,7 @@ When we hit `localhost:8000` the following actions take place:
 3. If the user has filled in (by mistake, or not so...) the same symbol for a different operation, then the defaults are loaded as defined in `config/calculator.php` file, and rendered in the view.
           We are using a basic layout, which is stored under `resources/views/calculator/home.blade.php`.
 4. The user fills in numeric values in the Operand 1 and Operand 2 fields and hits the "=" button, where we post the form 
-matching the route: `Route::post('/calculate',['as' => 'calculator.do', 'uses' => 'CalculatorController@getResult']);`
+matching the route: `Route::post('/calculate',['as' => 'calculator.getResult', 'uses' => 'CalculatorController@getResult']);`
 5. The user can also select a different value from the dropdown menu and the result will be automatically calculated on the server side and displayed in the results field.           
 
 ## Update Emojis

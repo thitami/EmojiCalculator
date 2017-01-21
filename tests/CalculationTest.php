@@ -36,7 +36,7 @@ class CalculationTest extends TestCase
             $this->expectException($expectedException);
         }
 
-        $response = $this->call('POST', route('calculator.do'), $data);
+        $response = $this->call('POST', route('calculator.getResult'), $data);
         $this->assertEquals($expectedResponse, $response->getContent(), sprintf($assertMessage));
     }
 
