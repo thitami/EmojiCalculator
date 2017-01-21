@@ -10,6 +10,7 @@
                         <div class="row">
                             <div class="col-md-3"></div>
                             <div class="col-md-6">
+                                {!! Form::open() !!}
                                 <input type="text" name="output" id="output" class="form-control">
                                 <input type="text" name="firstOperand" id="firstOperand" class="form-control" placeholder="Operand 1">
 
@@ -21,11 +22,12 @@
                                 <input type="text" name="secondOperand" id="secondOperand" class="form-control" placeholder="Operand 2">
 
                                 <div class="box-footer">
-                                    <button id="submit-calc"> = </button>
+                                    <button id="submit-calc" name="doCalculate"> = </button>
                                     <button class="btn btn-default btn-flat" name="button"
                                             type="reset"> Reset
                                     </button>
                                 </div>
+                                {!! Form::close() !!}
                             </div>
                             <div class="col-md-3">PLACEHOLDER</div>
                         </div>

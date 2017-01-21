@@ -2,6 +2,8 @@
 
 namespace App\Moveit\Calculator\Services;
 
+use App\Moveit\Calculator\Mappers\CalculatorMapper;
+use App\Moveit\Calculator\Models\Calculator;
 use Config;
 
 /**
@@ -10,38 +12,58 @@ use Config;
  */
 class CalculatorService
 {
-    public function __construct()
-    {
+    /**
+     * @var Calculator
+     */
+    protected $calculator;
 
+    /**
+     * @var CalculatorMapper
+     */
+    protected $calculatorMapper;
+
+    /**
+     * CalculatorService constructor.
+     * @param Calculator $calculator
+     * @param CalculatorMapper $calculatorMapper
+     */
+    public function __construct(Calculator $calculator, CalculatorMapper $calculatorMapper)
+    {
+        $this->calculator = $calculator;
+        $this->calculatorMapper = $calculatorMapper;
     }
 
     /**
-     * @param $operation
-     * @param $firstOperand
-     * @param $secondOperand
+     * Calculate calls CalculatorMapper to convert the passed array to proper Calculator model and
+     * perform the suitable operation between the operands.
      *
-     * @return float|string
+     * @param array $request
+     *
+     * @return float|null
      */
-    public function calculate($operation, $firstOperand, $secondOperand)
+    public function calculate(array $request)
     {
-        switch ($operation) {
+        $calculator = $this->calculatorMapper->toEntity($request);
+
+        switch ($calculator->getOperation()) {
             case "add":
-                return $firstOperand + $secondOperand;
+                return $calculator->getFirstOperand() + $calculator->getSecondOperand();
                 break;
 
             case "subtract":
-                return $firstOperand - $secondOperand;
+                return $calculator->getFirstOperand() - $calculator->getSecondOperand();
                 break;
 
             case "multiply":
-                return $firstOperand * $secondOperand;
+                return $calculator->getFirstOperand() * $calculator->getSecondOperand();
                 break;
 
             case "divide":
-                if ($secondOperand == 0) {
+                if ($calculator->getSecondOperand() == 0) {
                     throw new \InvalidArgumentException('Not a number');
                 }
-                return $firstOperand / $secondOperand;
+
+                return $calculator->getFirstOperand() / $calculator->getSecondOperand();
                 break;
 
             default:
@@ -50,16 +72,27 @@ class CalculatorService
     }
 
     /**
+     * Checks if there are any duplicate symbols supplied and if yes, it loads the defaults
+     * Otherwise, it loads the configured operand symbols.
+     *
      * @return array
      */
     public function getOperandSymbols()
     {
-        return [
-            'add' => Config::get('calculator.operation.add'),
-            'subtract' => Config::get('calculator.operation.subtract'),
-            'multiply' => Config::get('calculator.operation.multiply'),
-            'divide' => Config::get('calculator.operation.divide'),
-        ];
+        return (!$this->duplicateSymbolExists(
+            $operationsConfig = Config::get('calculator.operation')
+        )) ? $operationsConfig
+            : Config::get('calculator.defaults');
     }
 
+    /**
+     * Checks whether there is a duplicate symbol in the array
+     *
+     * @param $calculatorConfig
+     * @return bool
+     */
+    private function duplicateSymbolExists($calculatorConfig)
+    {
+        return count($calculatorConfig) !== count(array_unique($calculatorConfig));
+    }
 }

@@ -1,26 +1,51 @@
-# Laravel PHP Framework
+# Emoji Calculator
 
-[![Build Status](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.org/laravel/framework)
-[![Total Downloads](https://poser.pugx.org/laravel/framework/d/total.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Stable Version](https://poser.pugx.org/laravel/framework/v/stable.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Unstable Version](https://poser.pugx.org/laravel/framework/v/unstable.svg)](https://packagist.org/packages/laravel/framework)
-[![License](https://poser.pugx.org/laravel/framework/license.svg)](https://packagist.org/packages/laravel/framework)
+**Emoji Calculator** is a tiny project for the purpose of demonstration of some basic PHP skills working with**Laravel 5.3** and **Bootstrap v3.3.6**. 
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as authentication, routing, sessions, queueing, and caching.
+## How to set up and run it
 
-Laravel is accessible, yet powerful, providing tools needed for large, robust applications. A superb inversion of control container, expressive migration system, and tightly integrated unit testing support give you the tools you need to build any application with which you are tasked.
+We have firstly to clone the project locally: `git clone https://github.com/thitami/EmojiCalculator.git`
 
-## Official Documentation
+As soon as it the clone process is finished, please run `composer install` so to install the project and all its dependencies.
 
-Documentation for the framework can be found on the [Laravel website](http://laravel.com/docs).
+In our terminal we start a new server `php artisan serve`, which uses PHP's built-in server and by default listens to port `:8000`.
 
-## Contributing
+Then, we visit `localhost:8000` in a browser and we are ready to use it!
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
+## Approach
 
-## Security Vulnerabilities
+When we hit `localhost:8000` the following actions take place:
+1. The `Route::get('/','CalculatorController@homepage')` route is matched in `web.php`
+2. The `CalculatorService` is called to load the Operand symbols supplied in the `.env` file.
+3. If the user has filled in (by mistake, or not so...) the same symbol for a different operation, then the defaults are loaded as defined in `config/calculator.php` file, and rendered in the view.
+          We are using a basic layout, which is stored under `resources/views/calculator/home.blade.php`.
+4. The user fills in numeric values in the Operand 1 and Operand 2 fields and hits the "=" button, where we post the form 
+matching the route: `Route::post('/calculate',['as' => 'calculator.do', 'uses' => 'CalculatorController@getResult']);`
+5. The user can also select a different value from the dropdown menu and the result will be automatically calculated on the server side and displayed in the results field.           
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
+## Update Emojis
+The emojis used by the calculator can be configured in the `.env` file and by default are as follows: 
+
+```CALCULATOR_ADD_OPERAND = '&#128125;'
+
+ CALCULATOR_SUBTRACT_OPERAND = '&#128128;'
+ 
+ CALCULATOR_DIVIDE_OPERAND = '&#128123;'
+ 
+ CALCULATOR_MULTIPLY_OPERAND = '&#128561;'
+ ```
+ 
+Please consider that if we set the same symbol for a different operation then the following defaults
+ will be loaded:
+            
+         'add' => '&#128125;',
+         'subtract' => '&#128128;',
+         'multiply' => '&#128123;',
+         'divide' => '&#128561;',
+
+## Tests
+This project has a unit test coverage. PHPUnit tests can be found in `tests/CalculationTest.php` and get simply executed
+with the command `phpunit` from the base directory.
 
 ## License
 

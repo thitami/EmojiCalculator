@@ -32,6 +32,10 @@ class CalculationRequest extends Request
 
     }
 
+    /**
+     * Contains all the messages that will be displayed if validation fails
+     * @return array
+     */
     public function messages()
     {
         return [

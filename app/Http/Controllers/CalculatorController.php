@@ -41,18 +41,15 @@ class CalculatorController extends Controller
      */
     public function getResult(CalculationRequest $calculationRequest)
     {
-        $requestInput = $calculationRequest->all();
-
         try {
             $result = $this->calculatorService->calculate(
-                $requestInput['operation'],
-                $requestInput['firstOperand'],
-                $requestInput['secondOperand']
+                $calculationRequest->all()
             );
+
         } catch (\InvalidArgumentException $invalidArgumentException) {
             return $invalidArgumentException->getMessage();
         }
 
-        return $result;
+        return ($result === null) ? 'Invalid operator supplied' : $result;
     }
 }
