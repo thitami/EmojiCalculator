@@ -16,3 +16,7 @@
     color: whitesmoke;
     font-weight: bold;
 }
+
+select {
+    margin-bottom: 20px;
+}
