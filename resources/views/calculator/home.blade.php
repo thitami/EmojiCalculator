@@ -15,11 +15,10 @@
                                 <input type="text" name="firstOperand" id="firstOperand" class="form-control operand"
                                        placeholder="Operand 1" autocomplete="off">
 
-                                <div class='form-group{{ $errors->has("contestTypeId") ? ' has-error' : '' }}'>
-                                    {!! Form::select('operation', $symbols, 4, ['class' => 'form-control', 'id'=> 'operation']) !!}
+                                {!! Form::select('operation', $symbols, null, ['class' => 'form-control', 'id'=> 'operation']) !!}
 
-                                    {!! $errors->first("operandID", '<span class="help-block">:message</span>') !!}
-                                </div>
+                                {!! $errors->first("operandID", '<span class="help-block">:message</span>') !!}
+
                                 <input type="text" name="secondOperand" id="secondOperand" class="form-control operand"
                                        placeholder="Operand 2" autocomplete="off">
 
